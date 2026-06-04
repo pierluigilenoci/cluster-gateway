@@ -21,6 +21,7 @@ import (
 
 	"github.com/spf13/pflag"
 	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 )
 
 func TestAddLogFlags(t *testing.T) {
@@ -33,12 +34,12 @@ func TestAddLogFlags(t *testing.T) {
 
 	// legacy_stderr_threshold_behavior should be opted out
 	legacy := set.Lookup("legacy_stderr_threshold_behavior")
-	assert.NotNil(t, legacy, "expected legacy_stderr_threshold_behavior flag")
+	require.NotNil(t, legacy, "expected legacy_stderr_threshold_behavior flag")
 	assert.Equal(t, "false", legacy.Value.String())
 
 	// stderrthreshold should default to INFO
 	threshold := set.Lookup("stderrthreshold")
-	assert.NotNil(t, threshold, "expected stderrthreshold flag")
+	require.NotNil(t, threshold, "expected stderrthreshold flag")
 	// klog maps INFO to severity 0
 	assert.Equal(t, "0", threshold.Value.String())
 }
